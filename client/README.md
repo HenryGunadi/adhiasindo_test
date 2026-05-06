@@ -119,3 +119,7 @@ src/
 - Avoid overcomplicating layout with both Ionic + Tailwind at the same time
 
 ---
+
+## Preview
+<img width="1920" height="1014" alt="image" src="https://github.com/user-attachments/assets/2dc2d83d-4b36-45e7-becc-f3b28ca7964d" />
+
