@@ -1,7 +1,4 @@
 # React + Vite + Ionic + Tailwind + TypeScript
-
-Minimal starter template using React, Vite, TypeScript, Ionic React, and Tailwind CSS.
-
 ---
 
 ## Tech Stack
