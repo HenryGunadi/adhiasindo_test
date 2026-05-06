@@ -1,73 +1,124 @@
-# React + TypeScript + Vite
+# React + Vite + Ionic + Tailwind + TypeScript
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Minimal starter template using React, Vite, TypeScript, Ionic React, and Tailwind CSS.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Tech Stack
 
-## React Compiler
+- React
+- Vite
+- TypeScript
+- Ionic React
+- Tailwind CSS
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+---
 
-## Expanding the ESLint configuration
+## Installation
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+### 1. Create Project
+```bash
+npm create vite@latest my-app -- --template react-ts
+cd my-app
+npm install
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+### 2. Install Ionic
+```bash
+npm install @ionic/react @ionic/react-router ionicons
 ```
+
+### 3. Install Tailwind CSS
+```bash
+npm install -D tailwindcss postcss autoprefixer
+npx tailwindcss init -p
+```
+
+---
+
+## Configuration
+
+### Tailwind (`vite.config.ts`)
+```ts
+import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react";
+import tailwindcss from "@tailwindcss/vite";
+
+export default defineConfig({
+  plugins: [react(), tailwindcss()],
+});
+```
+
+### CSS (`src/index.css`)
+```css
+@import "tailwindcss" important;
+```
+
+### Ionic Setup (`src/main.tsx`)
+```tsx
+import "./index.css";
+
+import "@ionic/react/css/core.css";
+import "@ionic/react/css/normalize.css";
+import "@ionic/react/css/structure.css";
+import "@ionic/react/css/typography.css";
+
+import { setupIonicReact } from "@ionic/react";
+setupIonicReact();
+
+import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
+import App from "./App.tsx";
+
+createRoot(document.getElementById("root")!).render(
+  <StrictMode>
+    <App />
+  </StrictMode>,
+);
+```
+
+### Example App (`src/App.tsx`)
+```tsx
+import { IonApp, IonContent } from "@ionic/react";
+
+function App() {
+  return (
+    <IonApp>
+      <IonContent className="ion-padding">
+        <h1 className="text-2xl font-bold text-blue-500">
+          Hello Ionic + Tailwind 🚀
+        </h1>
+      </IonContent>
+    </IonApp>
+  );
+}
+
+export default App;
+```
+
+---
+
+## Run Dev Server
+```bash
+npm run dev
+```
+
+---
+
+## Project Structure
+```text
+src/
+  App.tsx
+  main.tsx
+  index.css
+```
+
+---
+
+## Notes
+
+- Tailwind works inside Ionic components via `className`
+- Ionic uses Shadow DOM but utility classes still apply
+- Avoid overcomplicating layout with both Ionic + Tailwind at the same time
+
+---
